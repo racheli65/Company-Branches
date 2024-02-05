@@ -1,0 +1,47 @@
+ <div *ngIf="errorLoad">Error loading branches Please try again later</div>
+ <div  class="row">
+<div class="form-group" style="display: flex;" >
+    <div >
+        <select id="areaDropdown" [(ngModel)]="selectArea">
+          <option value="">All Area </option>
+          <option *ngFor="let branch of branches | distinct: 'store_region'| orderBy: 'store_region' " [value]="branch.store_region">
+            {{ branch.store_region }}
+          </option>
+        </select>
+       
+    </div>
+
+      <div >
+        <select id="cityDropdown" [(ngModel)]="selectCity">
+          <option value="">All city</option>
+          <option *ngFor="let branch of branches | distinct: 'city'| orderBy: 'city'"  [value]=" branch.city ">
+            {{ branch.city }}
+          </option>
+        </select>
+      </div> 
+    
+    <input type="text" [(ngModel)]="filterText"  placeholder="Filter by text" id="filterText" /> 
+  <button (click)="clear()"  class="btn btn-primary" id="clearBtn">clean</button> 
+</div>  
+</div>
+
+    <table class="table table-borderedt  table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th class="col">store Id</th>
+          <th class="col">Name</th>
+          <th class="col">Address</th>
+          <th class="col">City</th>
+          <th class="col">Area</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let branch of filterBranches()">
+          <td class="col" scope="row">{{ branch.store_id }}</td>
+          <td class="col" scope="row">{{ branch.store_title }}</td>
+          <td class="col">{{ branch.store_address }}</td>
+          <td class="col">{{ branch.city }}</td>
+          <td class="col">{{ branch.store_region }}</td>
+        </tr>
+      </tbody>
+    </table>
